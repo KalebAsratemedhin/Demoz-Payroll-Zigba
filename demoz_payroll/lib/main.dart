@@ -6,10 +6,10 @@ import 'features/auth/data/repositories/auth_repository_impl.dart';
 import 'features/auth/presentation/bloc/auth_bloc.dart';
 import 'features/auth/presentation/pages/login_page.dart';
 import 'features/auth/presentation/pages/signup_page.dart';
-// import 'features/company/data/repositories/company_repository_impl.dart';
-// import 'features/company/presentation/bloc/company_bloc.dart';
-// import 'features/company/presentation/pages/create_company_page.dart';
-// import 'features/company/presentation/pages/management_page.dart';
+import 'features/company/data/repositories/company_repository_impl.dart';
+import 'features/company/presentation/bloc/company_bloc.dart';
+import 'features/company/presentation/pages/create_company_page.dart';
+import 'features/company/presentation/pages/management_page.dart';
 // import 'features/employee/data/repositories/employee_repository_impl.dart';
 // import 'features/employee/presentation/bloc/employee_bloc.dart';
 // import 'features/employee/presentation/pages/employee_list_page.dart';
@@ -31,9 +31,9 @@ class MyApp extends StatelessWidget {
         RepositoryProvider<AuthRepositoryImpl>(
           create: (context) => AuthRepositoryImpl(),
         ),
-        // RepositoryProvider<CompanyRepositoryImpl>(
-        //   create: (context) => CompanyRepositoryImpl(),
-        // ),
+        RepositoryProvider<CompanyRepositoryImpl>(
+          create: (context) => CompanyRepositoryImpl(),
+        ),
         // RepositoryProvider<EmployeeRepositoryImpl>(
         //   create: (context) => EmployeeRepositoryImpl(
         //     EmployeeLocalDataSourceImpl(),
@@ -47,11 +47,11 @@ class MyApp extends StatelessWidget {
               context.read<AuthRepositoryImpl>(),
             )..add(CheckAuthEvent()),
           ),
-          // BlocProvider<CompanyBloc>(
-          //   create: (context) => CompanyBloc(
-          //     context.read<CompanyRepositoryImpl>(),
-          //   ),
-          // ),
+          BlocProvider<CompanyBloc>(
+            create: (context) => CompanyBloc(
+              context.read<CompanyRepositoryImpl>(),
+            ),
+          ),
           // BlocProvider<EmployeeBloc>(
           //   create: (context) => EmployeeBloc(
           //     context.read<EmployeeRepositoryImpl>(),
@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
           home: const AuthWrapper(),
           routes: {
             '/signup': (context) => const SignUpPage(),
-            // '/create_company': (context) => const CreateCompanyPage(),
+            '/create_company': (context) => const CreateCompanyPage(),
             // '/add_employee': (context) => const AddEmployeePage(),
           },
         ),
