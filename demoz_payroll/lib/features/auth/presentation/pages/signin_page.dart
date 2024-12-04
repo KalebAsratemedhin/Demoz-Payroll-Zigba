@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key});
+class SignInPage extends StatefulWidget {
+  const SignInPage({super.key});
 
   @override
-  State<SignUpPage> createState() => _SignUpPageState();
+  State<SignInPage> createState() => _SignInPageState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
+class _SignInPageState extends State<SignInPage> {
   bool _obscurePassword = true;
 
   @override
@@ -37,7 +37,9 @@ class _SignUpPageState extends State<SignUpPage> {
                     color: Colors.black,
                   ),
                   children: [
-                    const TextSpan(text: 'Welcome\nto '),
+                    const TextSpan(text: 'Welcome Back '),
+                    const TextSpan(text: '👋'),
+                    const TextSpan(text: '\nto '),
                     TextSpan(
                       text: 'Demoz Payroll',
                       style: GoogleFonts.lexend(
@@ -49,7 +51,7 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               const SizedBox(height: 8),
               Text(
-                'Hello there, Sign up to continue',
+                'Hello there, Sign in to continue',
                 style: GoogleFonts.lexend(
                   color: Colors.grey[600],
                   fontSize: 14,
@@ -116,6 +118,20 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
               ),
               const SizedBox(height: 24),
+              Align(
+                alignment: Alignment.centerRight,
+                child: TextButton(
+                  onPressed: () {},
+                  child: Text(
+                    'Forgot Password?',
+                    style: GoogleFonts.lexend(
+                      color: const Color(0xFF579AFC),
+                      fontSize: 14,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 24),
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
@@ -129,7 +145,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                   ),
                   child: Text(
-                    'Sign up',
+                    'Sign in',
                     style: GoogleFonts.lexend(
                       color: Colors.black,
                       fontSize: 16,
@@ -183,7 +199,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Did you already have an account? ',
+                    'Don\'t have an account? ',
                     style: GoogleFonts.lexend(
                       color: Colors.grey[600],
                       fontSize: 14,
@@ -192,11 +208,10 @@ class _SignUpPageState extends State<SignUpPage> {
                   TextButton(
                     onPressed: () {},
                     child: Text(
-                      'Login',
+                      'Sign up',
                       style: GoogleFonts.lexend(
                         color: const Color(0xFF579AFC),
                         fontSize: 14,
-                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ),
