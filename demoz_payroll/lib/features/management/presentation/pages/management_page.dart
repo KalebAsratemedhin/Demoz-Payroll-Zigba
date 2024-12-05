@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'add_employee_page.dart';
+import '../../../profile/presentation/pages/company_profile_page.dart';
 
 class ManagementPage extends StatelessWidget {
   const ManagementPage({super.key});
@@ -47,7 +49,14 @@ class ManagementPage extends StatelessWidget {
               ],
             ),
             ElevatedButton.icon(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const AddEmployeePage(),
+                  ),
+                );
+              },
               icon: const Icon(Icons.add, color: Colors.white, size: 16),
               label: Text(
                 'Add Employee',
@@ -69,121 +78,172 @@ class ManagementPage extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
           child: Column(
             children: [
               Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: Colors.grey.shade200),
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.03),
+                      blurRadius: 8,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
                 ),
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Theme(
-                    data: Theme.of(context).copyWith(
-                      dataTableTheme: DataTableThemeData(
-                        headingTextStyle: GoogleFonts.lexend(
-                          fontWeight: FontWeight.w500,
-                        ),
-                        dataTextStyle: GoogleFonts.lexend(),
+                child: Column(
+                  children: [
+                    // Table Header
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              'Taxable\nEarnings',
+                              style: GoogleFonts.lexend(
+                                fontSize: 13,
+                                height: 1.3,
+                                fontWeight: FontWeight.w500,
+                                color: const Color(0xFF2B2B2B),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Text(
+                              'Income\nTax',
+                              style: GoogleFonts.lexend(
+                                fontSize: 13,
+                                height: 1.3,
+                                fontWeight: FontWeight.w500,
+                                color: const Color(0xFF2B2B2B),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Text(
+                              'Pension\nTax',
+                              style: GoogleFonts.lexend(
+                                fontSize: 13,
+                                height: 1.3,
+                                fontWeight: FontWeight.w500,
+                                color: const Color(0xFF2B2B2B),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Text(
+                              'Gross\nPay',
+                              style: GoogleFonts.lexend(
+                                fontSize: 13,
+                                height: 1.3,
+                                fontWeight: FontWeight.w500,
+                                color: const Color(0xFF2B2B2B),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 80,
+                            child: Text(
+                              'Actions',
+                              style: GoogleFonts.lexend(
+                                fontSize: 13,
+                                fontWeight: FontWeight.w500,
+                                color: const Color(0xFF2B2B2B),
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    child: Table(
-                      border: TableBorder(
-                        horizontalInside: BorderSide(color: Colors.grey[200]!),
-                      ),
-                      defaultColumnWidth: const FixedColumnWidth(150),
-                      columnWidths: const {
-                        0: FixedColumnWidth(200),
-                        1: FixedColumnWidth(150),
-                        2: FixedColumnWidth(150),
-                        3: FixedColumnWidth(150),
-                      },
-                      children: [
-                        TableRow(
-                          children: [
-                            _buildHeaderCell('Employees', true),
-                            _buildHeaderCell('Net Salary', false),
-                            _buildHeaderCell('Taxable\nEarnings', true),
-                            _buildHeaderCell('Income\nTax', false),
-                          ],
-                        ),
-                        ...List.generate(
-                          8,
-                          (index) => TableRow(
-                            children: [
-                              _buildCell(
-                                  ['Abrham Weldu', 'Bisrat Alemu', 'Birhane Girma', 'Alemu Molla'][index % 4],
-                                  true),
-                              _buildCell(
-                                  [15000, 25000, 15000, 15000][index % 4].toString(),
-                                  false),
-                              _buildCell(
-                                  [2000, 3000, 2000, 2000][index % 4].toString(),
-                                  true),
-                              _buildCell(
-                                  [5000, 7000, 5000, 5000][index % 4].toString(),
-                                  false),
-                            ],
+                    // Table Rows
+                    ...List.generate(
+                      5,
+                      (index) => Container(
+                        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                        decoration: BoxDecoration(
+                          color: index.isEven ? const Color(0xFFF8FBFF) : Colors.white,
+                          border: Border(
+                            top: BorderSide(
+                              color: Colors.grey.withOpacity(0.1),
+                            ),
                           ),
                         ),
-                      ],
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                '${2000 + (index == 1 ? 1000 : 0)}',
+                                style: GoogleFonts.lexend(
+                                  fontSize: 13,
+                                  color: const Color(0xFF2B2B2B),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                '${5000 + (index == 1 ? 2000 : 0)}',
+                                style: GoogleFonts.lexend(
+                                  fontSize: 13,
+                                  color: const Color(0xFF2B2B2B),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                '${5000 + (index == 1 ? 2000 : 0)}',
+                                style: GoogleFonts.lexend(
+                                  fontSize: 13,
+                                  color: const Color(0xFF2B2B2B),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                '${20000 + (index == 1 ? 10000 : 0)}',
+                                style: GoogleFonts.lexend(
+                                  fontSize: 13,
+                                  color: const Color(0xFF2B2B2B),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 80,
+                              child: Center(
+                                child: TextButton(
+                                  onPressed: () {},
+                                  style: TextButton.styleFrom(
+                                    backgroundColor: const Color(0xFF3DD598),
+                                    minimumSize: const Size(60, 28),
+                                    padding: EdgeInsets.zero,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(6),
+                                    ),
+                                  ),
+                                  child: Text(
+                                    'Pay',
+                                    style: GoogleFonts.lexend(
+                                      fontSize: 12,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               ),
             ],
           ),
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 1,
-        selectedItemColor: const Color(0xFF579AFC),
-        unselectedItemColor: Colors.grey,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.description_outlined),
-            label: 'Management',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
-            label: 'Profile',
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildHeaderCell(String text, bool isColored) {
-    return Container(
-      color: isColored ? const Color(0xFFE5F6FF) : Colors.white,
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      constraints: const BoxConstraints(minHeight: 50),
-      alignment: Alignment.centerLeft,
-      child: Text(
-        text,
-        style: GoogleFonts.lexend(
-          fontWeight: FontWeight.w500,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildCell(String text, bool isColored) {
-    return Container(
-      color: isColored ? const Color(0xFFE5F6FF) : Colors.white,
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      constraints: const BoxConstraints(minHeight: 50),
-      alignment: Alignment.centerLeft,
-      child: Text(
-        text,
-        style: GoogleFonts.lexend(),
-        overflow: TextOverflow.ellipsis,
       ),
     );
   }

@@ -1,9 +1,17 @@
+import 'dart:math' show pi;
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  bool isUpcoming = true;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +48,7 @@ class HomePage extends StatelessWidget {
                   Colors.blue[100]!,
                   Colors.blue,
                 )),
-                const SizedBox(width: 16),
+                const SizedBox(width: 8),
                 Expanded(child: _buildStatsCard(
                   'Income Tax\npaid',
                   '2000',
@@ -49,7 +57,7 @@ class HomePage extends StatelessWidget {
                 )),
               ],
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 8),
             Row(
               children: [
                 Expanded(child: _buildStatsCard(
@@ -58,7 +66,7 @@ class HomePage extends StatelessWidget {
                   Colors.blue[50]!,
                   Colors.blue,
                 )),
-                const SizedBox(width: 16),
+                const SizedBox(width: 8),
                 Expanded(child: _buildStatsCard(
                   'Employees\nPerformance',
                   '95 %',
@@ -67,85 +75,76 @@ class HomePage extends StatelessWidget {
                 )),
               ],
             ),
-            const SizedBox(height: 24),
-            Row(
-              children: [
-                TextButton(
-                  onPressed: () {},
-                  style: TextButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                  ),
-                  child: Text(
-                    'Upcoming',
-                    style: GoogleFonts.lexend(color: Colors.white),
-                  ),
-                ),
-                const SizedBox(width: 16),
-                TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    'Past',
-                    style: GoogleFonts.lexend(color: Colors.grey),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 24),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Date',
-                      style: GoogleFonts.lexend(
-                        color: Colors.grey[600],
-                        fontSize: 12,
-                      ),
-                    ),
-                    Text(
-                      'Aug 28, 2024 - Sep 5, 2024',
-                      style: GoogleFonts.lexend(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ],
-                ),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFFFEFEE),
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Text(
-                    'pay now',
-                    style: GoogleFonts.lexend(
-                      color: const Color(0xFFFF7F74),
-                      fontSize: 12,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 24),
+            const SizedBox(height: 16),
             Container(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(4),
+              decoration: BoxDecoration(
+                color: const Color(0x0DACAFB5),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        isUpcoming = true;
+                      });
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                      decoration: BoxDecoration(
+                        color: isUpcoming ? const Color(0xFF3085FE) : Colors.transparent,
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Text(
+                        'Upcoming',
+                        style: GoogleFonts.lexend(
+                          fontSize: 16,
+                          color: isUpcoming ? Colors.white : Colors.black,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          isUpcoming = false;
+                        });
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                        decoration: BoxDecoration(
+                          color: !isUpcoming ? const Color(0xFF3085FE) : Colors.transparent,
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: Text(
+                          'Past',
+                          style: GoogleFonts.lexend(
+                            fontSize: 16,
+                            color: !isUpcoming ? Colors.white : Colors.black,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 16),
+            if (isUpcoming) Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(24),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(12),
                 boxShadow: const [
                   BoxShadow(
-                    color: Color(0x05000000),
-                    blurRadius: 8,
-                    offset: Offset(0, 2),
-                    spreadRadius: 2,
+                    color: Color(0x0D000000),
+                    blurRadius: 24,
+                    offset: Offset(0, 4),
                   ),
                 ],
               ),
@@ -154,7 +153,6 @@ class HomePage extends StatelessWidget {
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -162,313 +160,356 @@ class HomePage extends StatelessWidget {
                           Text(
                             'Date',
                             style: GoogleFonts.lexend(
-                              color: Colors.grey[600],
-                              fontSize: 12,
+                              fontSize: 14,
+                              color: const Color(0xFF949494),
                             ),
                           ),
+                          const SizedBox(height: 4),
                           Text(
                             'Aug 28, 2024 - Sep 5, 2024',
                             style: GoogleFonts.lexend(
-                              fontWeight: FontWeight.w500,
                               fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black,
                             ),
                           ),
                         ],
                       ),
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                         decoration: BoxDecoration(
-                          color: const Color(0xFFFFEFEE),
-                          borderRadius: BorderRadius.circular(16),
+                          color: const Color(0xFFFFEEED),
+                          borderRadius: BorderRadius.circular(8),
                         ),
                         child: Text(
                           'pay now',
                           style: GoogleFonts.lexend(
-                            color: const Color(0xFFFF7F74),
-                            fontSize: 12,
+                            fontSize: 14,
+                            color: const Color(0xFFFF6B6B),
                           ),
                         ),
                       ),
                     ],
                   ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 16),
-                    child: Divider(
-                      color: Color(0xFFEEEFF0),
-                      thickness: 1,
-                    ),
+                  const SizedBox(height: 16),
+                  const Divider(
+                    color: Color(0xFFEEEEF0),
+                    thickness: 1,
                   ),
+                  const SizedBox(height: 16),
                   Row(
                     children: [
-                      Expanded(
-                        child: Row(
-                          children: [
-                            Expanded(child: _buildTaxItem('Income Tax', '4000', 'etb')),
-                            const SizedBox(width: 24),
-                            Expanded(child: _buildTaxItem('Pension Tax', '5000', 'etb')),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(width: 24),
                       Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'August',
+                            'Income Tax',
                             style: GoogleFonts.lexend(
-                              color: const Color(0xFFFF7F74),
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16,
-                            ),
-                          ),
-                          Text(
-                            'Tax on due',
-                            style: GoogleFonts.lexend(
-                              color: const Color(0xFFFF7F74),
                               fontSize: 14,
+                              color: const Color(0xFF949494),
                             ),
                           ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 24),
-            SizedBox(
-              height: 280,
-              child: Row(
-                children: [
-                  Expanded(
-                    flex: 3,
-                    child: Container(
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(12),
-                        boxShadow: const [
-                          BoxShadow(
-                            color: Color(0x05000000),
-                            blurRadius: 8,
-                            offset: Offset(0, 2),
-                            spreadRadius: 2,
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Employee Composition',
-                            style: GoogleFonts.lexend(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          Expanded(
-                            child: Center(
-                              child: SizedBox(
-                                width: 160,
-                                height: 160,
-                                child: PieChart(
-                                  PieChartData(
-                                    sections: [
-                                      PieChartSectionData(
-                                        value: 35,
-                                        color: const Color(0xFF5932EA),
-                                        title: '',
-                                        radius: 40,
-                                        showTitle: false,
-                                      ),
-                                      PieChartSectionData(
-                                        value: 65,
-                                        color: const Color(0xFF16C098),
-                                        title: '',
-                                        radius: 40,
-                                        showTitle: false,
-                                      ),
-                                    ],
-                                    sectionsSpace: 0,
-                                    centerSpaceRadius: 30,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(8),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                      color: Color(0x05000000),
-                                      blurRadius: 4,
-                                      offset: Offset(0, 2),
-                                      spreadRadius: 1,
-                                    ),
-                                  ],
-                                ),
-                                child: Row(
-                                  children: [
-                                    const Icon(Icons.person, color: Color(0xFF5932EA), size: 16),
-                                    const SizedBox(width: 4),
-                                    Text(
-                                      '35%',
-                                      style: GoogleFonts.lexend(
-                                        color: const Color(0xFF5932EA),
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(width: 16),
-                              Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(8),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                      color: Color(0x05000000),
-                                      blurRadius: 4,
-                                      offset: Offset(0, 2),
-                                      spreadRadius: 1,
-                                    ),
-                                  ],
-                                ),
-                                child: Row(
-                                  children: [
-                                    const Icon(Icons.person_outline, color: Color(0xFF16C098), size: 16),
-                                    const SizedBox(width: 4),
-                                    Text(
-                                      '65%',
-                                      style: GoogleFonts.lexend(
-                                        color: const Color(0xFF16C098),
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 12),
-                          Center(
-                            child: Text(
-                              '856 employee total',
-                              style: GoogleFonts.lexend(
-                                color: Colors.grey[600],
-                                fontSize: 12,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    flex: 2,
-                    child: Container(
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(12),
-                        boxShadow: const [
-                          BoxShadow(
-                            color: Color(0x05000000),
-                            blurRadius: 8,
-                            offset: Offset(0, 2),
-                            spreadRadius: 2,
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Tax summery',
-                            style: GoogleFonts.lexend(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          const Spacer(),
+                          const SizedBox(height: 4),
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.baseline,
                             textBaseline: TextBaseline.alphabetic,
                             children: [
                               Text(
-                                '9,349.85',
+                                '4000',
                                 style: GoogleFonts.lexend(
-                                  fontSize: 24,
+                                  fontSize: 20,
                                   fontWeight: FontWeight.w600,
+                                  color: Colors.black,
                                 ),
                               ),
                               const SizedBox(width: 4),
                               Text(
                                 'etb',
                                 style: GoogleFonts.lexend(
-                                  fontSize: 14,
-                                  color: Colors.grey[600],
-                                ),
-                              ),
-                            ],
-                          ),
-                          const Spacer(),
-                          Row(
-                            children: [
-                              const Icon(
-                                Icons.arrow_upward,
-                                color: Color(0xFF00BA88),
-                                size: 16,
-                              ),
-                              const SizedBox(width: 4),
-                              Text(
-                                '49.98%',
-                                style: GoogleFonts.lexend(
-                                  color: const Color(0xFF00BA88),
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
+                                  fontSize: 12,
+                                  color: const Color(0xFF949494),
                                 ),
                               ),
                             ],
                           ),
                         ],
                       ),
-                    ),
+                      const SizedBox(width: 48),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Pension Tax',
+                            style: GoogleFonts.lexend(
+                              fontSize: 14,
+                              color: const Color(0xFF949494),
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.baseline,
+                            textBaseline: TextBaseline.alphabetic,
+                            children: [
+                              Text(
+                                '5000',
+                                style: GoogleFonts.lexend(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              const SizedBox(width: 4),
+                              Text(
+                                'etb',
+                                style: GoogleFonts.lexend(
+                                  fontSize: 12,
+                                  color: const Color(0xFF949494),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      const Spacer(),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            'August',
+                            style: GoogleFonts.lexend(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                              color: const Color(0xFFFF6B6B),
+                            ),
+                          ),
+                          Text(
+                            'Tax on due',
+                            style: GoogleFonts.lexend(
+                              fontSize: 16,
+                              color: const Color(0xFFFF6B6B),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ],
               ),
             ),
+            const SizedBox(height: 16),
+            const Divider(
+              color: Color(0xFFEEEEF0),
+              thickness: 1,
+            ),
+            const SizedBox(height: 16),
+            Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    height: 200,
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Color(0x0D000000),
+                          blurRadius: 24,
+                          offset: Offset(0, 4),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Employee Composition',
+                          style: GoogleFonts.lexend(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.black,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        SizedBox(
+                          height: 90,
+                          width: double.infinity,
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              SizedBox(
+                                width: 80,
+                                height: 80,
+                                child: CustomPaint(
+                                  painter: DonutChartPainter(
+                                    values: const [35, 65],
+                                    colors: const [Color(0xFF5932EA), Color(0xFF16C098)],
+                                    strokeWidth: 12,
+                                    largerSectionStrokeWidth: 12,
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                left: 20,
+                                top: 20,
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(12),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                        color: Color(0x1A000000),
+                                        blurRadius: 8,
+                                        offset: Offset(0, 2),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      const Icon(Icons.male, size: 14, color: Color(0xFF5932EA)),
+                                      const SizedBox(width: 4),
+                                      Text(
+                                        '35%',
+                                        style: GoogleFonts.lexend(
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w500,
+                                          color: const Color(0xFF5932EA),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                right: 20,
+                                bottom: 20,
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(12),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                        color: Color(0x1A000000),
+                                        blurRadius: 8,
+                                        offset: Offset(0, 2),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      const Icon(Icons.female, size: 14, color: Color(0xFF16C098)),
+                                      const SizedBox(width: 4),
+                                      Text(
+                                        '65%',
+                                        style: GoogleFonts.lexend(
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w500,
+                                          color: const Color(0xFF16C098),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Center(
+                          child: Text(
+                            '856 employee total',
+                            style: GoogleFonts.lexend(
+                              fontSize: 10,
+                              color: const Color(0xFF949494),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Container(
+                    height: 200,
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Color(0x0D000000),
+                          blurRadius: 24,
+                          offset: Offset(0, 4),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Tax Summary',
+                          style: GoogleFonts.lexend(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.black,
+                          ),
+                        ),
+                        const Spacer(),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.baseline,
+                          textBaseline: TextBaseline.alphabetic,
+                          children: [
+                            Text(
+                              '9,349',
+                              style: GoogleFonts.lexend(
+                                fontSize: 24,
+                                fontWeight: FontWeight.w600,
+                                color: const Color(0xFF262422),
+                              ),
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              'etb',
+                              style: GoogleFonts.lexend(
+                                fontSize: 12,
+                                color: Colors.grey[600],
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 4),
+                        Row(
+                          children: [
+                            const Icon(
+                              Icons.arrow_upward,
+                              color: Color(0xFF00BA88),
+                              size: 12,
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              '49.98%',
+                              style: GoogleFonts.lexend(
+                                color: const Color(0xFF00BA88),
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const Spacer(),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.grey,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.receipt_long),
-            label: 'Reports',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-        ],
       ),
     );
   }
@@ -552,4 +593,52 @@ class HomePage extends StatelessWidget {
       ],
     );
   }
+}
+
+double radians(double degrees) => degrees * pi / 180;
+
+class DonutChartPainter extends CustomPainter {
+  final List<double> values;
+  final List<Color> colors;
+  final double strokeWidth;
+  final double largerSectionStrokeWidth;
+
+  DonutChartPainter({
+    required this.values,
+    required this.colors,
+    required this.strokeWidth,
+    required this.largerSectionStrokeWidth,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final Paint paint = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = strokeWidth
+      ..strokeCap = StrokeCap.butt;
+
+    final center = Offset(size.width / 2, size.height / 2);
+    final radius = (size.width - strokeWidth) / 2;
+
+    double startAngle = -pi / 2;
+    final total = values.reduce((a, b) => a + b);
+
+    // Draw sections
+    for (int i = 0; i < values.length; i++) {
+      paint.color = colors[i];
+      final sweepAngle = (values[i] / total) * 2 * pi;
+      
+      canvas.drawArc(
+        Rect.fromCircle(center: center, radius: radius),
+        startAngle,
+        sweepAngle,
+        false,
+        paint,
+      );
+      startAngle += sweepAngle;
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }

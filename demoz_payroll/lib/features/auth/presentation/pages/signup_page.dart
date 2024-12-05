@@ -37,7 +37,9 @@ class _SignUpPageState extends State<SignUpPage> {
                     color: Colors.black,
                   ),
                   children: [
-                    const TextSpan(text: 'Welcome\nto '),
+                    const TextSpan(text: 'Welcome '),
+                    const TextSpan(text: '👋'),
+                    const TextSpan(text: '\nto '),
                     TextSpan(
                       text: 'Demoz Payroll',
                       style: GoogleFonts.lexend(
